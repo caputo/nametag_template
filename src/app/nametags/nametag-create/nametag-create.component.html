@@ -1,0 +1,20 @@
+<div>
+  <div class="max-w-7xl mx-auto py-12 px-4">
+    <h2
+      class="text-3xl font-extrabold tracking-tight text-gray-900 text-center"
+    >
+      <span class="block">Ready to dive in?</span>
+      <span class="block text-indigo-600">Choose a template to start.</span>
+    </h2>
+
+    <div class="grid grid-cols-2 justify-evenly justify-items-center mt-16">
+      <img
+        class="block shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all hover:cursor-pointer"
+        *ngFor="let t of allNametagTemplates"
+        (click)="createNametag(t)"
+        [alt]="t.demoImageAlt"
+        [src]="t.demoImageSrc"
+      />
+    </div>
+  </div>
+</div>

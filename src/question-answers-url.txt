@@ -1,0 +1,12 @@
+/**
+ * 1. Create your Google Doc. Open this Doc (https://bit.ly/3FbYuE1)
+ *    then click "File" -> "Make a copy".
+ *
+ * 2. Make the Google Doc public. Click
+ *    "Share" -> "Anyone on the internet with this link can view"
+ *
+ * 3. Answer the questions asked in the Doc.
+ *
+ * 4. Copy the share URL and paste it below.
+ */
+Link to Google Doc:
