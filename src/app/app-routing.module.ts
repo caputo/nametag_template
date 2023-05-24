@@ -7,7 +7,7 @@ import { NametagListComponent } from "./nametags/nametag-list/nametag-list.compo
 import { AppRoutes } from "./shared/app-routes";
 import { NametagListResolver } from "./nametags/resolvers/nametag-list.resolver";
 import { NametagResolver } from "./nametags/resolvers/nametag.resolver";
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 const routes: Routes = [
   { path: "", redirectTo: "nametags" },
   {
@@ -34,7 +34,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes), FormsModule, ReactiveFormsModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

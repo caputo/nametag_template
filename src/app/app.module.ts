@@ -8,6 +8,9 @@ import { NametagEditComponent } from "./nametags/nametag-edit/nametag-edit.compo
 import { NametagListComponent } from "./nametags/nametag-list/nametag-list.component";
 import { NametagContainerComponent } from "./nametags/nametag-container/nametag-container.component";
 import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
+import { NametagCardComponent } from './nametags/nametag-card/nametag-card/nametag-card.component';
+
 
 @NgModule({
   declarations: [
@@ -15,9 +18,10 @@ import { CommonModule } from "@angular/common";
     NametagContainerComponent,
     NametagCreateComponent,
     NametagEditComponent,
-    NametagListComponent
+    NametagListComponent,
+    NametagCardComponent    
   ],
-  imports: [AppRoutingModule, BrowserModule, CommonModule],
+  imports: [AppRoutingModule, BrowserModule, CommonModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent]
 })

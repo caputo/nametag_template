@@ -1,0 +1,31 @@
+.nametag-edit{
+    width: 525px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.nametag-edit-content {
+    position: absolute;
+    margin-left:5px;
+    margin-right:5px;
+}
+
+.nametag-header{
+    top:0px;
+    position:absolute;
+    width: 100%;
+}
+
+.nametag-footer{
+    bottom:0px;
+    position:absolute;
+    width: 100%;    
+}
+.nametag-edit-content > input{
+    background-color: rgba(0,0,0,0);    
+    text-align: center;
+    width: 100%;        
+}

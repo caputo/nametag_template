@@ -1,1 +1,6 @@
-<p>This is where your work should go!</p>
+<div id="nametag-edit-container" class="container mx-auto" style="display:block">
+    <app-nametag-card [nametag]="nametag"></app-nametag-card>
+    <div style="text-align:center; margin-top:30px">
+        <button (click)="save()" class="whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition-all">Save Nametag</button>
+    </div>
+</div>

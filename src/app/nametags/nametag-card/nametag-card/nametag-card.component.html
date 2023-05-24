@@ -1,0 +1,13 @@
+<div>
+    <input type="checkbox" class="appearance-none checked:bg-blue-500" [(ngModel)]="showProfession">Show Profession
+    <div [ngClass]="nametag.templateSlug">
+        <div class="nametag-edit container mx-auto">        
+            <div class="nametag-header"></div>
+            <div class="nametag-edit-content">
+                <input id="txtTagName" [(ngModel)]="nametag.firstName" class="name-input" (keydown)="onKeyDownCheckLength($event)" placeholder="Name" onkeydown="return event.key !== ' '"/>
+                <input id="txtTagProfession" [(ngModel)]="nametag.profession" class="profession-input" (keydown)="onKeyDownCheckLength($event)" *ngIf="showProfession" placeholder="Profession"/>
+            </div>
+            <div class="nametag-footer"></div>
+        </div>        
+    </div>        
+</div>
