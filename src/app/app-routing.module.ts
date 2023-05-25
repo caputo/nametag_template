@@ -8,6 +8,11 @@ import { AppRoutes } from "./shared/app-routes";
 import { NametagListResolver } from "./nametags/resolvers/nametag-list.resolver";
 import { NametagResolver } from "./nametags/resolvers/nametag.resolver";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TemplatesListComponent } from "./templates/templates-list/templates-list/templates-list.component";
+import { TemplatesListResolver } from "./nametags/resolvers/templates-list.resolver";
+import { TemplateCreateComponent } from "./templates/template-create/template-create/template-create.component";
+import { TemplateEditResolver } from "./nametags/resolvers/templates-edit.resolver";
+import { TemplateEditComponent } from "./templates/template-edit/template-edit.component";
 const routes: Routes = [
   { path: "", redirectTo: "nametags" },
   {
@@ -28,7 +33,23 @@ const routes: Routes = [
         path: AppRoutes.NAMETAG_EDIT.path,
         component: NametagEditComponent,
         resolve: { nametag: NametagResolver }
+      },
+      {
+        path: AppRoutes.TEMPLATE_LIST.path,
+        component: TemplatesListComponent,
+        resolve: { nametag: TemplatesListResolver }
+      },
+      {
+        path: AppRoutes.TEMPLATE_CREATE.path,
+        component: TemplateCreateComponent,
+        resolve: { nametag: TemplatesListResolver }
+      },
+      {
+        path: AppRoutes.TEMPLATE_EDIT.path,
+        component: TemplateEditComponent,
+        resolve: { nametag: TemplateEditResolver }
       }
+
     ]
   }
 ];

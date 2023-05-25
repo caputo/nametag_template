@@ -1,5 +1,5 @@
 import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
+import { NgModule, ChangeDetectorRef } from "@angular/core";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -10,6 +10,10 @@ import { NametagContainerComponent } from "./nametags/nametag-container/nametag-
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { NametagCardComponent } from './nametags/nametag-card/nametag-card/nametag-card.component';
+import { TemplatesListComponent } from './templates/templates-list/templates-list/templates-list.component';
+import { TemplateEditorComponent } from './templates/template-editor/template-editor/template-editor.component';
+import { TemplateCreateComponent } from './templates/template-create/template-create/template-create.component';
+import { TemplateEditComponent } from './templates/template-edit/template-edit.component';
 
 
 @NgModule({
@@ -19,7 +23,11 @@ import { NametagCardComponent } from './nametags/nametag-card/nametag-card/namet
     NametagCreateComponent,
     NametagEditComponent,
     NametagListComponent,
-    NametagCardComponent    
+    NametagCardComponent,
+    TemplatesListComponent,
+    TemplateEditorComponent,
+    TemplateCreateComponent,
+    TemplateEditComponent    
   ],
   imports: [AppRoutingModule, BrowserModule, CommonModule, FormsModule],
   providers: [],

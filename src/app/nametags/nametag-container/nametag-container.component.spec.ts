@@ -31,4 +31,8 @@ describe("NametagContainerComponent", () => {
   it("should display link to nametag list page", () => {
     expect(page.nametagListLink).toBeTruthy();
   });
+
+  it("sould display message"), () =>{
+    //TODO
+  }
 });

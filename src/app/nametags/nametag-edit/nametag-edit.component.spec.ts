@@ -5,7 +5,7 @@ import { NametagEditComponentPageSpec } from "./nametag-edit.component.page.spec
 import { RouterTestingModule } from "@angular/router/testing";
 import { ActivatedRoute } from "@angular/router";
 import { of } from "rxjs";
-import { MockNametagData } from "../mock-nametag.data";
+import { MockNametagData } from "../../models/mock-nametag.data";
 import { NametagService } from "../nametag.service";
 
 describe("NametagEditComponent", () => {

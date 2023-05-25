@@ -9,7 +9,8 @@ import { Injectable } from "@angular/core";
 // Local storage operates with key-value pairs. Centralize all the
 // key names we might use.
 export enum StorageKey {
-  Nametags = "nametags"
+  Nametags = "nametags",
+  NametagsTemplates = "nametagstemplates"
 }
 
 @Injectable({

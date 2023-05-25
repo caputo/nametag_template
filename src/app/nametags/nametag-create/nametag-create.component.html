@@ -8,13 +8,9 @@
     </h2>
 
     <div class="grid grid-cols-2 justify-evenly justify-items-center mt-16">
-      <img
-        class="block shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all hover:cursor-pointer"
-        *ngFor="let t of allNametagTemplates"
-        (click)="createNametag(t)"
-        [alt]="t.demoImageAlt"
-        [src]="t.demoImageSrc"
-      />
+      <a *ngFor="let sampleTag of sampleNametag" (click)="createNametag(sampleTag)" class="block shadow-xl hover:shadow-2xl my-5 hover:-translate-y-2 transition-all hover:cursor-pointer">
+      <app-nametag-card [editEnabled]="false" [nametag]="sampleTag"></app-nametag-card>
+      </a>      
     </div>
   </div>
 </div>

@@ -5,8 +5,8 @@ import {
   LocalStorageService,
   StorageKey
 } from "../shared/local-storage.service";
-import { MockNametagData } from "./mock-nametag.data";
-import { ErrorMessages } from "../shared/error-messages";
+import { MockNametagData } from "../models/mock-nametag.data";
+import { AppMessagesDefault } from "../shared/error-messages";
 
 describe("NametagService", () => {
   let service: NametagService;
@@ -79,7 +79,7 @@ describe("NametagService", () => {
 
     // Then we fail.
     await expectAsync(result).toBeRejectedWith(
-      ErrorMessages.CREATE_DUPLICATE_NAMETAG
+      AppMessagesDefault.CREATE_DUPLICATE_NAMETAG
     );
     expect(localStorageService.saveData).not.toHaveBeenCalled();
   });
@@ -113,7 +113,7 @@ describe("NametagService", () => {
 
     // Then we fail.
     await expectAsync(result).toBeRejectedWith(
-      ErrorMessages.UPDATE_NONEXISTENT_NAMETAG
+      AppMessagesDefault.UPDATE_NONEXISTENT_NAMETAG
     );
     expect(localStorageService.saveData).not.toHaveBeenCalled();
   });
@@ -141,7 +141,7 @@ describe("NametagService", () => {
 
     // Then we fail.
     await expectAsync(result).toBeRejectedWith(
-      ErrorMessages.FETCH_NONEXISTENT_NAMETAG
+      AppMessagesDefault.FETCH_NONEXISTENT_NAMETAG
     );
     expect(localStorageService.saveData).not.toHaveBeenCalled();
   });

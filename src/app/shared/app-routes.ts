@@ -46,4 +46,29 @@ export class AppRoutes {
     ],
     linkClass: "nametag-edit"
   };
+  public static TEMPLATE_CREATE: AppRoute = {
+    path: "templates/create",
+    buildFragments: () => ["/", AppRoutes.NAMETAG_CONTAINER.path, "templates", "create"],
+    linkClass: "template-create"
+  };
+
+  public static TEMPLATE_LIST: AppRoute = {
+    path: "templates/list",
+    buildFragments: () => ["/", AppRoutes.NAMETAG_CONTAINER.path, "templates", "list"],
+    linkClass: "templates-list"
+  };
+
+  public static TEMPLATE_EDIT: AppRoute = {
+    path: "templates/:templateId/edit",
+    buildFragments: (templateId: string) => [
+      "/",
+      AppRoutes.NAMETAG_CONTAINER.path,
+      "templates",
+      templateId,
+      "edit"
+    ],
+    linkClass: "template-edit"
+  };
+
+ 
 }

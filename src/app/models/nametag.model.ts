@@ -1,17 +1,15 @@
-import {
-  NametagTemplate,
-  NametagTemplates,
-  NametagTemplateSlug
-} from "./nametag-templates";
+import { NametagTemplatesService } from "../services/nametag-templates.service";
+import { NametagEntity } from "./nametag-entity.model";
+import { NametagTemplate } from "./nametag-template.model";
+import {  
+  NametagTemplateSlugDefaults,
+  NametagTemplatesDefault  
+} from "./nametag-templates-default";
 
 /**
  * A JSON, HTTP-friendly representation of a nametag.
  */
-export interface SerializedNametag {
-  // The unique ID that identified this nametag. Note that
-  // we treat this as the primary key in the storage layer.
-  id: string;
-
+export interface SerializedNametag extends NametagEntity {
   // The first name of the person wearing the nametag. For our
   // purposes we don't display last names.
   firstName: string;
@@ -21,41 +19,45 @@ export interface SerializedNametag {
 
   // The unique ID that identifies which nametag template the
   // user wants.
-  templateSlug: NametagTemplateSlug;
+  templateSlug: string;
+
+  //Indicates if the profission is visible in the nametag
+  isProfessionVisible:boolean;
 }
 
+
+
+/** Class related to the nametag
+ * contains the relation with the template and can implement others verifications
+ */
 export class Nametag implements SerializedNametag {
   id: string;
   firstName: string;
   profession: string;
-  templateSlug: NametagTemplateSlug;
-
-  // Take the templateSlug (the source of truth) and get all the other
-  // data associated with that template.
-  get template() {
-    return NametagTemplates.getTemplateWithSlug(this.templateSlug);
-  }
-
-  set template(newTemplate: NametagTemplate) {
-    this.templateSlug = newTemplate.slug;
-  }
+  templateSlug: string;
+  template:NametagTemplate;
+  isProfessionVisible:boolean;
+  
 
   constructor(rawData: Partial<SerializedNametag>) {
     // If a property is defined in rawData, then use that. Otherwise,
     // use the default value for that property.
     Object.assign(this, this.getDefaultSerializedValues(), rawData);
+
+    this.template = NametagTemplatesService.getTemplateWithSlug(this.templateSlug);
   }
 
   /**
    * Converts this object into something that can be stored in the
    * storage layer.
    */
-  serialize(): SerializedNametag {
+  public serialize(): SerializedNametag {
     return {
       id: this.id,
       firstName: this.firstName,
       profession: this.profession,
-      templateSlug: this.template.slug
+      templateSlug: this.template.slug,
+      isProfessionVisible:this.isProfessionVisible
     };
   }
 
@@ -72,7 +74,8 @@ export class Nametag implements SerializedNametag {
       id: Date.now().toString(),
       firstName: "",
       profession: "",
-      templateSlug: NametagTemplateSlug.Sleek
+      isProfessionVisible:true,
+      templateSlug: NametagTemplateSlugDefaults.Sleek
     };
   }
 }

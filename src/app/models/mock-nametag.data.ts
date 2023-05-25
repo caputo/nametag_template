@@ -3,14 +3,14 @@
  * tests.
  */
 import { Nametag } from "./nametag.model";
-import { NametagTemplateSlug } from "./nametag-templates";
+import { NametagTemplateSlugDefaults } from "./nametag-templates-default";
 
 export class MockNametagData {
   public static readonly nametag: Nametag = new Nametag({
     id: "123",
     firstName: "Amanda",
     profession: "Architect",
-    templateSlug: NametagTemplateSlug.Sleek
+    templateSlug: NametagTemplateSlugDefaults.Sleek
   });
 
   // Both of these should be unique from the nametag field.
@@ -19,13 +19,13 @@ export class MockNametagData {
       id: "125",
       firstName: "Hariet",
       profession: "Plumber",
-      templateSlug: NametagTemplateSlug.Sleek
+      templateSlug: NametagTemplateSlugDefaults.Sleek
     }),
     new Nametag({
       id: "199",
       firstName: "Jackson",
       profession: "Developer",
-      templateSlug: NametagTemplateSlug.Playful
+      templateSlug: NametagTemplateSlugDefaults.Playful
     })
   ];
 }

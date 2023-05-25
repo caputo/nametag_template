@@ -4,9 +4,9 @@ import { NametagListComponent } from "./nametag-list.component";
 import { NametagListComponentPageSpec } from "./nametag-list.component.page.spec";
 import { ActivatedRoute } from "@angular/router";
 import { of } from "rxjs";
-import { MockNametagData } from "../mock-nametag.data";
+import { MockNametagData } from "../../models/mock-nametag.data";
 import { RouterTestingModule } from "@angular/router/testing";
-import { Nametag } from "../nametag.model";
+import { Nametag } from "../../models/nametag.model";
 
 describe("NametagListComponent", () => {
   let component: NametagListComponent;

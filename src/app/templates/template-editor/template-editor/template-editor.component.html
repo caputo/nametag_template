@@ -1,0 +1,33 @@
+<div id="nametag-edit-container" class="container mx-auto">
+    <div class="container mx-auto px-20 flex flex-row border-b border-gray-900/10 pb-12">
+        <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div class="sm:col-span-1">
+              <label for="slug" class="block text-sm font-medium leading-6 text-gray-900">Slug</label>
+              <div class="mt-2">
+                <input type="text" [disabled]="isEdit" [(ngModel)]="template.slug" name="slaug" id="txtslug" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              </div>
+            </div>
+    
+            <div class="sm:col-span-3">
+              <label for="txtAlt" class="block text-sm font-medium leading-6 text-gray-900">Description</label>
+              <div class="mt-2">
+                <input type="text" [(ngModel)]="template.demoImageAlt" name="txtAlt" id="txtAlt" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mx-auto columns-2">
+        <div>
+            <app-nametag-card [editEnabled]="true" [nametag]="customNameTag"></app-nametag-card>
+        </div>
+        <div>
+            <div class="px-10 py-5 space-x-4" style="text-align: center;">                
+                <button (click)="save()" class="whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition-all">Save Template</button>
+            </div>
+            <div style="display:inline-grid">
+                <label for="txtTemplate">Edit the Css</label>
+                <textarea id="txtTemplateCss" (keyup)="refreshTemplate()" [(ngModel)]="template.cssStyle"> </textarea>
+            </div>
+        </div>
+    </div>
+</div>

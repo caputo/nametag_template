@@ -5,7 +5,7 @@ import { NametagCreateComponentPageSpec } from "./nametag-create.component.page.
 import { RouterTestingModule } from "@angular/router/testing";
 import { NametagService } from "../nametag.service";
 import { NavigationService } from "../../shared/navigation.service";
-import { MockNametagData } from "../mock-nametag.data";
+import { MockNametagData } from "../../models/mock-nametag.data";
 
 describe("NametagCreateComponent", () => {
   let component: NametagCreateComponent;

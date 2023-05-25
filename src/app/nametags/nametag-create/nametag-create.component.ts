@@ -1,8 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-import { NametagTemplate, NametagTemplates } from "../nametag-templates";
-import { NametagService } from "../nametag.service";
-import { Nametag } from "../nametag.model";
-import { NavigationService } from "../../shared/navigation.service";
+import { NametagTemplate } from "src/app/models/nametag-template.model";
+import { NametagService } from "../../services/nametag.service";
+import { Nametag } from "../../models/nametag.model";
+import { NavigationService } from "../../services/navigation.service";
+import { NametagCardComponent } from "../nametag-card/nametag-card/nametag-card.component";
+import { NametagTemplatesService } from "src/app/services/nametag-templates.service";
 
 /**
  * This is the page where a user can create a brand-new
@@ -14,20 +16,27 @@ import { NavigationService } from "../../shared/navigation.service";
   templateUrl: "./nametag-create.component.html",
   styleUrls: ["./nametag-create.component.scss"]
 })
-export class NametagCreateComponent implements OnInit {
-  readonly allNametagTemplates: NametagTemplate[] = NametagTemplates.getAllTemplates();
-
+export class NametagCreateComponent implements OnInit {  
+  sampleNametag :Nametag[] = [];
   constructor(
     private readonly nametag: NametagService,
-    private readonly navigation: NavigationService
+    private readonly navigation: NavigationService,
+    private readonly templatesService: NametagTemplatesService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.templatesService.list().then((templates) => {
+      for(let template of templates){
+        this.sampleNametag.push(new Nametag({firstName:template.sampleName,profession:template.sampleProfession,templateSlug:template.slug}));      
+      }    
+    });
+  }
 
   /**
    * Creates a brand new nametag with the given template.
    */
-  async createNametag(template: NametagTemplate): Promise<void> {
+  async createNametag(nametag: Nametag): Promise<void> {
+    let template = nametag.template;
     let newNametag = new Nametag({ templateSlug: template.slug });
     try {
       // Always use data coming from server over local data.

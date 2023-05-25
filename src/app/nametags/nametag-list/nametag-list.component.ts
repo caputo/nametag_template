@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { Nametag } from "../nametag.model";
+import { Nametag } from "../../models/nametag.model";
 import { AppRoutes } from "../../shared/app-routes";
 import {Subscription} from "rxjs";
 
@@ -23,7 +23,7 @@ export class NametagListComponent implements OnInit,OnDestroy {
 
   ngOnInit(): void {
     this.routeDataSub = this.activatedRoute.data.subscribe((data: any) => {
-      this.nametags = data.nametags;
+      this.nametags = data.nametags[1];
     });
   }
 

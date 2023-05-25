@@ -4,8 +4,10 @@ import {
   RouterStateSnapshot,
   ActivatedRouteSnapshot
 } from "@angular/router";
-import { NametagService } from "../nametag.service";
-import { Nametag } from "../nametag.model";
+import { NametagService } from "../../services/nametag.service";
+import { Nametag } from "../../models/nametag.model";
+import { NametagTemplate } from "src/app/models/nametag-template.model";
+import { NametagTemplatesService } from "src/app/services/nametag-templates.service";
 
 /**
  * Pulls the nametagId from the route params and returns a full-fledged
@@ -15,14 +17,15 @@ import { Nametag } from "../nametag.model";
 @Injectable({
   providedIn: "root"
 })
-export class NametagResolver implements Resolve<Nametag> {
-  constructor(private readonly nametagService: NametagService) {}
+export class NametagResolver implements Resolve<[NametagTemplate[],Nametag]> {
+  constructor(private readonly nametagService: NametagService,
+              private readonly templatesServices: NametagTemplatesService) {}
 
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Promise<Nametag> {
+  ): Promise<[NametagTemplate[],Nametag]> {
     const nametagId: string = route.params.nametagId;
-    return this.nametagService.fetchNametag(nametagId);
+    return Promise.all([this.templatesServices.list(),this.nametagService.fetchNametag(nametagId)]);    
   }
 }

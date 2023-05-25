@@ -10,18 +10,11 @@
   class="grid grid-cols-4 justify-evenly justify-items-center my-8 gap-y-8"
 >
   <a
-    *ngFor="let nametag of nametags"
+    *ngFor="let nametag of nametags" style="transform:scale(0.6)"
     [routerLink]="AppRoutes.NAMETAG_EDIT.buildFragments($any(nametag.id))"
     class="block shadow-md bg-white py-6 px-16 rounded-md text-center hover:shadow-lg hover:-translate-y-1 transition-all hover:cursor-pointer"
   >
-    <div class="text-xl">
-      <span *ngIf="nametag.firstName">{{ nametag.firstName }}</span>
-      <span *ngIf="!nametag.firstName" class="italic">No first name</span>
-    </div>
-    <div class="text-base">
-      <div *ngIf="nametag.profession">{{ nametag.profession }}</div>
-      <div *ngIf="!nametag.profession" class="italic">No profession</div>
-    </div>
+    <app-nametag-card [editEnabled]="false" [nametag]="nametag"></app-nametag-card>    
   </a>
 </div>
 
