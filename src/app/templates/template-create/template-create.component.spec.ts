@@ -95,4 +95,20 @@ describe('TemplateCreateComponent', () => {
     expect(templatesService.create).toHaveBeenCalled();
     expect(appEventsService.PublishMessage).toHaveBeenCalledWith({message:"Unit Test Error", level:MessageLevel.ERROR});
   });
+
+  it("should call allert when the slug is not filled", async() => {        
+      //Given
+      component.ngOnInit();
+      childFixture.componentInstance.template = component.template;    
+      component.template.slug = null;       
+      childFixture.detectChanges();
+
+      //When
+      const btnSave = page.getSaveButton;
+      await btnSave.click();
+
+      //Then      
+      expect(appEventsService.PublishMessage).toHaveBeenCalledWith({message:AppMessagesDefault.CREATE_TEMPLATE_ALERT_FIELD, level:MessageLevel.WARNING});
+      expect(component).toBeTruthy();
+  });
 });
