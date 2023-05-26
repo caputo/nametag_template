@@ -4,8 +4,8 @@ import {
   RouterStateSnapshot,
   ActivatedRouteSnapshot
 } from "@angular/router";
-import { NametagService } from "../../services/nametag.service";
-import { Nametag } from "../../models/nametag.model";
+import { NametagService } from "../services/nametag.service";
+import { Nametag } from "../models/nametag.model";
 import { NametagTemplate } from "src/app/models/nametag-template.model";
 import { NametagTemplatesService } from "src/app/services/nametag-templates.service";
 

@@ -9,10 +9,10 @@ import { NametagListComponent } from "./nametags/nametag-list/nametag-list.compo
 import { NametagContainerComponent } from "./nametags/nametag-container/nametag-container.component";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
-import { NametagCardComponent } from './nametags/nametag-card/nametag-card/nametag-card.component';
-import { TemplatesListComponent } from './templates/templates-list/templates-list/templates-list.component';
-import { TemplateEditorComponent } from './templates/template-editor/template-editor/template-editor.component';
-import { TemplateCreateComponent } from './templates/template-create/template-create/template-create.component';
+import { NametagCardComponent } from './nametags/nametag-card/nametag-card.component';
+import { TemplatesListComponent } from './templates/templates-list/templates-list.component';
+import { TemplateEditorComponent } from './templates/template-editor/template-editor.component';
+import { TemplateCreateComponent } from './templates/template-create/template-create.component';
 import { TemplateEditComponent } from './templates/template-edit/template-edit.component';
 
 

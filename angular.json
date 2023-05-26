@@ -1,10 +1,10 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "cli": {
-    "analytics": false
+    "analytics": false    
   },
   "version": 1,
-  "newProjectRoot": "projects",
+  "newProjectRoot": "projects", 
   "projects": {
     "nametag-builder": {
       "projectType": "application",
@@ -108,7 +108,8 @@
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
-          "options": {
+          "options": {    
+            "codeCoverage": true,       
             "main": "src/test.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",

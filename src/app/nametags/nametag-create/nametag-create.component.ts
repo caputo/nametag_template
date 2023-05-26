@@ -1,10 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { NametagTemplate } from "src/app/models/nametag-template.model";
 import { NametagService } from "../../services/nametag.service";
 import { Nametag } from "../../models/nametag.model";
 import { NavigationService } from "../../services/navigation.service";
-import { NametagCardComponent } from "../nametag-card/nametag-card/nametag-card.component";
-import { NametagTemplatesService } from "src/app/services/nametag-templates.service";
+import { ActivatedRoute } from "@angular/router";
 
 /**
  * This is the page where a user can create a brand-new
@@ -17,18 +15,19 @@ import { NametagTemplatesService } from "src/app/services/nametag-templates.serv
   styleUrls: ["./nametag-create.component.scss"]
 })
 export class NametagCreateComponent implements OnInit {  
-  sampleNametag :Nametag[] = [];
+  sampleNametag :Nametag[];
   constructor(
-    private readonly nametag: NametagService,
-    private readonly navigation: NavigationService,
-    private readonly templatesService: NametagTemplatesService
+    private readonly nametagService: NametagService,
+    private readonly navigation: NavigationService,  
+    private readonly activatedRoute: ActivatedRoute  
   ) {}
 
   ngOnInit(): void {
-    this.templatesService.list().then((templates) => {
-      for(let template of templates){
+    this.activatedRoute.data.subscribe((data: any) => {
+      this.sampleNametag = [];
+      for(let template of data.templates){
         this.sampleNametag.push(new Nametag({firstName:template.sampleName,profession:template.sampleProfession,templateSlug:template.slug}));      
-      }    
+      }       
     });
   }
 
@@ -40,7 +39,7 @@ export class NametagCreateComponent implements OnInit {
     let newNametag = new Nametag({ templateSlug: template.slug });
     try {
       // Always use data coming from server over local data.
-      newNametag = await this.nametag.createNametag(newNametag);
+      newNametag = await this.nametagService.createNametag(newNametag);
       await this.navigation.goToNametagEdit(newNametag.id);
     } catch (e) {
       // Strictly for the purposes of this take-home challenge we

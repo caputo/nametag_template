@@ -19,7 +19,9 @@ export class NametagContainerComponent implements OnInit {
   showMessage:boolean = true;
   message:AppMessage;
 
-  constructor(private readonly appEventsService:AppEventsService) {
+  constructor(private readonly appEventsService:AppEventsService) {  
+  }
+  ngOnInit(): void {
     this.appEventsService.messageSubject.subscribe((data:AppMessage)=>this.showMessageHandler(data));
   }
 
@@ -29,9 +31,6 @@ export class NametagContainerComponent implements OnInit {
     this.showMessage = true;    
     setTimeout(() => {
       this.showMessage = false;      
-    }, 5000);
-    
+    }, 5000);    
   }
-
-  ngOnInit(): void {}
 }

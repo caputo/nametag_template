@@ -26,7 +26,7 @@ export class AppEventsService {
   /** Subject to indicates the template css update in the template editor screen */
   public templateChanged = new Subject();
   
-  public notifyTemplateChanged(){
+  public NotifyTemplateChanged(){
     this.templateChanged.next(null);
   }
 }

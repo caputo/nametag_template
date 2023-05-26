@@ -1,6 +1,11 @@
 <div id="nametag-edit-container" class="container mx-auto">
+    <div style="text-align: center; font-size: 12px;">
+        <span>Click on Name or Profession to edit.</span>
+    </div>
     <app-nametag-card [editEnabled]="true" [nametag]="nametag"></app-nametag-card>
     <div id="divEditButtons">
-        <button (click)="save()" class="whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition-all">Save Nametag</button>
+        <button id="btnSaveTagNameEdit" (click)="save()"
+            class="whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition-all">Save
+            Nametag</button>
     </div>
 </div>

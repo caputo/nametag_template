@@ -13,28 +13,31 @@ export class TemplateEditorComponent implements OnInit {
   @Input() isEdit: boolean;
   @Input() saveFunction: Function;
   customNameTag: Nametag;
-  constructor(private readonly appEventsService:AppEventsService) { }
+  slug: string="";
+  constructor(private readonly appEventsService: AppEventsService) { }
 
   ngOnInit(): void {
     this.customNameTag = new Nametag({
-      firstName:this.template.sampleName,
-      profession:this.template.sampleProfession,
-      templateSlug:"TemplateEditor"  
+      firstName: this.template.sampleName,
+      profession: this.template.sampleProfession,
+      templateSlug: this.template.slug
     });
     this.customNameTag.template = this.template;
+    this.slug = this.isEdit ? this.template.slug : "";
   }
 
   /** Notify the card component the css update */
-  refreshTemplate():void{
-    this.appEventsService.notifyTemplateChanged();
+  refreshTemplate(): void {
+    this.appEventsService.NotifyTemplateChanged();
   }
 
-  save(){
-    this.template.id = this.template.slug;
+
+  /** Fill the object and call the save function injected by the parent */
+  save() {
+    this.template.slug = this.slug;    
     this.template.sampleName = this.customNameTag.firstName;
     this.template.sampleProfession = this.customNameTag.profession;
 
-    //Call the save function injected by the parent
     this.saveFunction.call(this.customNameTag);
   }
 

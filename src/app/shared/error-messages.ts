@@ -30,6 +30,9 @@ export class AppMessagesDefault {
   static readonly CREATE_TEMPLATE_SUCESS =
     "Template successfully created!";
 
+    static readonly CREATE_TEMPLATE_ALERT_FIELD =
+    "Please fill all the required fields!";
+
   static readonly UPDATE_TEMPLATE_SUCESS =
     "Template successfully created!";
 }

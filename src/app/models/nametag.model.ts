@@ -38,7 +38,7 @@ export class Nametag implements SerializedNametag {
   template:NametagTemplate;
   isProfessionVisible:boolean;
   
-
+  
   constructor(rawData: Partial<SerializedNametag>) {
     // If a property is defined in rawData, then use that. Otherwise,
     // use the default value for that property.
@@ -56,7 +56,7 @@ export class Nametag implements SerializedNametag {
       id: this.id,
       firstName: this.firstName,
       profession: this.profession,
-      templateSlug: this.template.slug,
+      templateSlug: this.templateSlug,
       isProfessionVisible:this.isProfessionVisible
     };
   }

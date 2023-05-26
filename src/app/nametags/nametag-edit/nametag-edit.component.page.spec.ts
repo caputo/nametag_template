@@ -8,4 +8,16 @@ export class NametagEditComponentPageSpec extends PageSpec<
   constructor(someFixture: ComponentFixture<NametagEditComponent>) {
     super(someFixture);
   }
+
+  get getSaveButton():HTMLButtonElement{
+    return this.query<HTMLButtonElement>(`#btnSaveTagNameEdit`);
+  }
+
+  get getName():HTMLInputElement{
+    return this.query<HTMLInputElement>(`#txtTagName`);
+  }
+
+  get getProfession():HTMLInputElement{
+    return this.query<HTMLInputElement>(`#txtTagProfession`);
+  }
 }

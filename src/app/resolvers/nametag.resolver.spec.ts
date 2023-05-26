@@ -1,9 +1,9 @@
 import { TestBed } from "@angular/core/testing";
 
 import { NametagResolver } from "./nametag.resolver";
-import { NametagService } from "../../services/nametag.service";
+import { NametagService } from "../services/nametag.service";
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
-import { MockNametagData } from "../../models/mock-nametag.data";
+import { MockNametagData } from "../models/mock-nametag.data";
 
 // I don't really understand this type, but it's useful to allow us to
 // mock ActivatedRoute. See: https://stackoverflow.com/a/57425844

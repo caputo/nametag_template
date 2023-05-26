@@ -1,8 +1,8 @@
 import { TestBed } from "@angular/core/testing";
 
 import { NametagListResolver } from "./nametag-list.resolver";
-import { NametagService } from "../../services/nametag.service";
-import { MockNametagData } from "../../models/mock-nametag.data";
+import { NametagService } from "../services/nametag.service";
+import { MockNametagData } from "../models/mock-nametag.data";
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
 
 describe("NametagListResolver", () => {

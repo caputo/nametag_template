@@ -1,38 +1,29 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { TemplateEditComponent } from './template-edit.component';
-import { TemplateEditorComponent } from '../template-editor/template-editor.component';
+import { TemplateCreateComponent } from './template-create.component';
 import { NametagTemplatesService } from 'src/app/services/nametag-templates.service';
 import { AppEventsService } from 'src/app/services/app-events.service';
-import { NavigationService } from 'src/app/services/navigation.service';
-import { TemplateEditComponentPageSpec } from './template-edit.component.page.spec';
-import { NametagTemplatesDefault } from 'src/app/models/nametag-templates-default';
 import { AppMessagesDefault, MessageLevel } from 'src/app/shared/error-messages';
-import { ActivatedRoute } from '@angular/router';
-import { of } from 'rxjs';
+import { NametagTemplatesDefault } from 'src/app/models/nametag-templates-default';
+import { TemplateCreateComponentPageSpec } from './template-create.component.page.spec';
+import { NavigationService } from 'src/app/services/navigation.service';
+import { TemplateEditorComponent } from '../template-editor/template-editor.component';
 
-describe('TemplateEditComponent', () => {
-  let component: TemplateEditComponent;
-  let fixture: ComponentFixture<TemplateEditComponent>;
+describe('TemplateCreateComponent', () => {
+  let component: TemplateCreateComponent;
+  let fixture: ComponentFixture<TemplateCreateComponent>;
   let childFixture: ComponentFixture<TemplateEditorComponent>;
   let templatesService: jasmine.SpyObj<NametagTemplatesService>;
   let appEventsService: jasmine.SpyObj<AppEventsService>;
   let navigationService: jasmine.SpyObj<NavigationService>;
-  let page:TemplateEditComponentPageSpec;
+  let page:TemplateCreateComponentPageSpec;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TemplateEditComponent],
+      declarations: [ TemplateCreateComponent],
       providers: [
         {
-          provide: ActivatedRoute,
-          useValue: ({
-            data: of({ template:NametagTemplatesDefault.SLEEK})
-          } as any) as ActivatedRoute
-        },
-        {
           provide: NametagTemplatesService,
-          useValue: jasmine.createSpyObj("NametagTemplatesService", ["update"])
+          useValue: jasmine.createSpyObj("NametagTemplatesService", ["create"])
         },
         {
           provide:AppEventsService, 
@@ -55,9 +46,9 @@ describe('TemplateEditComponent', () => {
     templatesService = TestBed.inject(NametagTemplatesService) as jasmine.SpyObj<NametagTemplatesService>;
     appEventsService = TestBed.inject(AppEventsService) as jasmine.SpyObj<AppEventsService>;
     navigationService = TestBed.inject(NavigationService) as jasmine.SpyObj<NavigationService>;
-    fixture = TestBed.createComponent(TemplateEditComponent);
+    fixture = TestBed.createComponent(TemplateCreateComponent);
     childFixture = TestBed.createComponent(TemplateEditorComponent);
-    page = new TemplateEditComponentPageSpec(fixture);
+    page = new TemplateCreateComponentPageSpec(fixture);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -67,35 +58,41 @@ describe('TemplateEditComponent', () => {
   });
 
   it("Should call the save function and update call tha update and publish message", async() => {
+
     //Given
     component.ngOnInit();
     childFixture.componentInstance.template = component.template;    
-    templatesService.update.and.returnValue(Promise.resolve(NametagTemplatesDefault.SLEEK));
-    
+    templatesService.create.and.returnValue(
+      Promise.resolve(NametagTemplatesDefault.SLEEK)
+    );
+    childFixture.detectChanges();
+
     //When
     const btnSave = page.getSaveButton;
     await btnSave.click();
 
     //Then
-    expect(templatesService.update).toHaveBeenCalled();
-    expect(navigationService.goToTemplatesList).toHaveBeenCalled();
-    expect(appEventsService.PublishMessage).toHaveBeenCalledWith({message:AppMessagesDefault.UPDATE_TEMPLATE_SUCESS, level:MessageLevel.INFO});    
+    expect(templatesService.create).toHaveBeenCalled();
+    expect(appEventsService.PublishMessage).toHaveBeenCalledWith({message:AppMessagesDefault.CREATE_TEMPLATE_SUCESS, level:MessageLevel.INFO});
+    expect(component).toBeTruthy();
   });
 
   it("should call the save function send error message when fails", async() => {        
+
     //Given
     component.ngOnInit();
-    childFixture.componentInstance.template = component.template;           
-    templatesService.update.and.returnValue(
+    childFixture.componentInstance.template = component.template;        
+    childFixture.detectChanges();
+    templatesService.create.and.returnValue(
       Promise.reject("Unit Test Error")
     );
 
     //When
-    const btnSave = page.getSaveButton;
+    var btnSave = page.getSaveButton;
     await btnSave.click();    
     
     //Then
-    expect(templatesService.update).toHaveBeenCalled();    
+    expect(templatesService.create).toHaveBeenCalled();
     expect(appEventsService.PublishMessage).toHaveBeenCalledWith({message:"Unit Test Error", level:MessageLevel.ERROR});
   });
 });

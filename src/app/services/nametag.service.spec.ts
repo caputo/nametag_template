@@ -4,14 +4,16 @@ import { NametagService } from "./nametag.service";
 import {
   LocalStorageService,
   StorageKey
-} from "../shared/local-storage.service";
+} from "../services/local-storage.service";
 import { MockNametagData } from "../models/mock-nametag.data";
 import { AppMessagesDefault } from "../shared/error-messages";
+import { NametagTemplatesService } from "./nametag-templates.service";
+import { NametagTemplatesDefault } from "../models/nametag-templates-default";
 
 describe("NametagService", () => {
   let service: NametagService;
   let localStorageService: jasmine.SpyObj<LocalStorageService>;
-
+  NametagTemplatesService.templates = NametagTemplatesDefault.getAllTemplates();
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
@@ -41,7 +43,7 @@ describe("NametagService", () => {
     const result = service.createNametag(newNametag);
 
     // Then we succeed.
-    expect(await result).toEqual(newNametag);
+    expect((await result).serialize()).toEqual(newNametag.serialize());
     expect(localStorageService.saveData).toHaveBeenCalledWith(
       StorageKey.Nametags,
       [newNametag.serialize()]
@@ -49,7 +51,7 @@ describe("NametagService", () => {
   });
 
   it("should create a nametag when other nametags exist", async () => {
-    localStorageService.loadData.and.returnValue(MockNametagData.nametags);
+    localStorageService.loadData.and.returnValue(MockNametagData.nametags.map(s=>s.serialize()));
     // Given a new nametag to create.
     const newNametag = MockNametagData.nametag;
 
@@ -57,7 +59,7 @@ describe("NametagService", () => {
     const result = service.createNametag(newNametag);
 
     // Then we succeed.
-    expect(await result).toEqual(newNametag);
+    expect((await result).serialize()).toEqual(newNametag.serialize());
     // Remember that we store the serialized representations of the nametags,
     // not the objects themselves.
     const expectedNametags = [...MockNametagData.nametags, newNametag].map(n =>
@@ -91,10 +93,10 @@ describe("NametagService", () => {
     nametagToUpdate.firstName = "Something-new";
 
     // When we attempt to update it.
-    const result = service.updateNametag(nametagToUpdate);
+    const result = await service.updateNametag(nametagToUpdate);
 
     // Then we succeed.
-    expect(await result).toEqual(nametagToUpdate);
+    expect(result.serialize()).toEqual(nametagToUpdate.serialize());
     // Then the data actually gets updated.
     expect(nametagToUpdate.serialize().firstName).toEqual("Something-new");
     expect(localStorageService.saveData).toHaveBeenCalledWith(
@@ -127,7 +129,7 @@ describe("NametagService", () => {
     const result = service.fetchNametag(nametagToFetch.id);
 
     // Then we succeed.
-    expect(await result).toEqual(nametagToFetch);
+    expect((await result).serialize()).toEqual(nametagToFetch.serialize());
     expect(localStorageService.saveData).not.toHaveBeenCalled();
   });
 
@@ -147,9 +149,9 @@ describe("NametagService", () => {
   });
 
   it("should list all nametags that exist", async () => {
-    localStorageService.loadData.and.returnValue(MockNametagData.nametags);
+    localStorageService.loadData.and.returnValue(MockNametagData.nametags.map(s=>s.serialize()));
 
-    const result = service.listNametags();
-    expect(await result).toEqual(MockNametagData.nametags);
+    const result = await service.listNametags();
+    expect(result.map(s=>s.serialize())).toEqual(MockNametagData.nametags.map(s=>s.serialize()));
   });
 });

@@ -13,12 +13,19 @@ export class GenericLocalStorageService<T extends NametagEntity>{
   /** Subject to notify that the source has changed */
   public dataChanged = new Subject();
 
+  /** Keep cached in memory updating when the subject dataChanged is called */
+  private _cachedData:T[];
+
   constructor(private readonly localStorage: LocalStorageService, 
                 private readonly storageKey:StorageKey,
                 private readonly duplicateMessage: string,
                 private readonly updateNonExistingMessage: string,
                 private readonly fetchNonExistingMessage: string,
-                 ) {}
+                 ) {
+                  this.dataChanged.subscribe((data:T[])=>{
+                    this._cachedData = data;
+                  });
+                 }
 
      /**
    * Saves a newly-created entity in the storage layer. Note that
@@ -27,7 +34,7 @@ export class GenericLocalStorageService<T extends NametagEntity>{
    *                   we want to save to storage.
    */
   async create(newEntity: T): Promise<T> {
-    const existingEntities: T[] = this.loadFromStorage();
+    const existingEntities: T[] = await this.list();
     const matchinEntityIndex = existingEntities.findIndex(
       n => n.id === newEntity.id
     );
@@ -50,7 +57,7 @@ export class GenericLocalStorageService<T extends NametagEntity>{
    * data was previously saved for that entity.
    */
   async update(nametag: T): Promise<T> {
-    const existingEntities: T[] = this.loadFromStorage();
+    const existingEntities: T[] =  await this.list();
     const matchinEntityIndex = existingEntities.findIndex(
       n => n.id === nametag.id
     );
@@ -73,7 +80,7 @@ export class GenericLocalStorageService<T extends NametagEntity>{
    * Loads the entity with the given ID from the storage layer.
    */
   async fetch(entityId: string): Promise<T> {
-    const existingEntities: T[] = this.loadFromStorage();
+    const existingEntities: T[] = await this.list();
     const mathingEntityIndex = existingEntities.findIndex(
       n => n.id === entityId
     );
@@ -88,17 +95,18 @@ export class GenericLocalStorageService<T extends NametagEntity>{
    * Loads all the nametags the user has created from the storage layer.
    */
   async list(): Promise<T[]> {
-    return Promise.resolve(this.loadFromStorage());
+    if(! this._cachedData){
+      this._cachedData = this.loadFromStorage();
+    }
+    this.dataChanged.next(this._cachedData);
+    return Promise.resolve(this._cachedData);
   }
 
   private loadFromStorage(): T[] {
     const entitiesInDb: T[] = this.localStorage.loadData(
       this.storageKey,
       []
-    );
-    //Notify that the data has changed
-    this.dataChanged.next(entitiesInDb);
-
+    );   
     return entitiesInDb;    
   }
 

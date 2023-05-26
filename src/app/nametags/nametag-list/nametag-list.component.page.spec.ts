@@ -2,11 +2,9 @@ import { PageSpec } from "../../shared/page.spec";
 import { ComponentFixture } from "@angular/core/testing";
 import { NametagListComponent } from "./nametag-list.component";
 
-export class NametagListComponentPageSpec extends PageSpec<
-  NametagListComponent
-> {
+export class NametagListComponentPageSpec extends PageSpec<NametagListComponent> {
   get nametags(): HTMLLinkElement[] {
-    return this.queryAll<HTMLLinkElement>("a");
+    return this.queryAll<HTMLLinkElement>(".nametagLink");
   }
 
   constructor(someFixture: ComponentFixture<NametagListComponent>) {

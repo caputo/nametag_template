@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { NametagTemplate } from 'src/app/models/nametag-template.model';
-import { AppRoutes } from 'src/app/shared/app-routes';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { NametagTemplate } from '../../models/nametag-template.model';
+import { AppRoutes } from '../../shared/app-routes';
 import { ActivatedRoute } from "@angular/router";
 import {Subscription} from "rxjs";
-import { Nametag } from 'src/app/models/nametag.model';
+import { Nametag } from '../../models/nametag.model';
 
 @Component({
   selector: 'app-templates-list',
   templateUrl: './templates-list.component.html',
   styleUrls: ['./templates-list.component.scss']
 })
-export class TemplatesListComponent implements OnInit {
+export class TemplatesListComponent implements OnInit, OnDestroy {
 
   AppRoutes = AppRoutes;
   templates: NametagTemplate[];
@@ -21,9 +21,13 @@ export class TemplatesListComponent implements OnInit {
 
   ngOnInit(): void {
     this.routeDataSub = this.activatedRoute.data.subscribe((data: any) => {
-      this.templates = data.nametag;
+      this.templates = data.templates;
       this.nameTagTemplates = this.templates.map(s=>this.createSampleNameTag(s));
     })
+  }
+
+  ngOnDestroy(): void {
+    this.routeDataSub.unsubscribe();
   }
 
   private createSampleNameTag(template:NametagTemplate){

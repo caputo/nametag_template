@@ -22,19 +22,23 @@ export class NametagTemplatesService extends GenericLocalStorageService<NametagT
        this.dataChanged.subscribe((data:NametagTemplate[]) => {
         NametagTemplatesService.templates = data;
       });
-
-       //Check if there is some data storaged in the current browser if not save the defaults
-       this.list().then((templates) => {
-        if(templates.length===0){
-          var templatesDefault = NametagTemplatesDefault.getAllTemplates();
-          for(let template of templatesDefault)
-          {
-            this.create(template);
-          }
-        }        
-       });
-
+      this.list().then((templates) => this.validateInitialize(templates) );
   }
+
+
+  async validateInitialize(templates:NametagTemplate[]){
+    if(templates?.length===0){
+      var templatesDefault = NametagTemplatesDefault.getAllTemplates();
+      for(let template of templatesDefault)
+      {
+        this.create(template);
+      }
+      
+      NametagTemplatesService.templates = await this.list();
+    }        
+  }
+
+  
   
   //Provides a static way to anyone acesss the data without the need to inject the class
   static templates:NametagTemplate[];

@@ -9,7 +9,7 @@ export enum NametagTemplateSlugDefaults {
 export class NametagTemplatesDefault {
 
   /** The default css for new templates */
-  public static ClearCSS: string = `
+  public static readonly ClearCSS: string = `
     .nametag-edit-background{
       background-color: #c5c5c5;
       color: black;
@@ -36,7 +36,7 @@ export class NametagTemplatesDefault {
         text-transform: uppercase;
     }`;
 
-  public static SLEEK: NametagTemplate = {
+  public static readonly SLEEK: NametagTemplate = {
     id:NametagTemplateSlugDefaults.Sleek,
     slug: NametagTemplateSlugDefaults.Sleek,
     sampleName: "ADDALEE",
@@ -67,7 +67,7 @@ export class NametagTemplatesDefault {
       font-weight: 300;
   }`
   };
-  public static PLAYFUL: NametagTemplate = {
+  public static readonly PLAYFUL: NametagTemplate = {
     id: NametagTemplateSlugDefaults.Playful,
     slug: NametagTemplateSlugDefaults.Playful,
     demoImageSrc: "assets/images/playful_template.png",
